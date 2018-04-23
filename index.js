@@ -7,6 +7,7 @@ const blogPostRouter = require('./blogPostRouter');
 
 // to log the HTTP layer, use morgan
 app.use(morgan('common'));
+app.use(express.static('public'));
 
 // reroute requests that come into `/blog-posts
 app.use('/blog-posts', blogPostRouter);
