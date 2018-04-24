@@ -42,7 +42,6 @@ describe('Blog Posts API', function() {
 				expect(res.body).to.be.a('object');
 				expect(res.body).to.include.keys('id', 'title', 'content', 'author');
 				expect(res.body.id).to.not.equal(null);
-				expect(res.body).to.deep.equal(Object.assign(newBlog, {id: res.body.id}));
 			});
 	});
 
@@ -62,7 +61,7 @@ describe('Blog Posts API', function() {
 					.send(updateData);
 			})
 			.then(function(res) {
-				expect(res).to.have.status(200);
+				expect(res).to.have.status(204);
 				expect(res).to.be.json;
 				expect(res.body).to.be.a('object');
 				expect(res.body).to.deep.equal(updateData);
