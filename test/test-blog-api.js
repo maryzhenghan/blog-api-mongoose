@@ -62,8 +62,6 @@ describe('Blog Posts API', function() {
 			})
 			.then(function(res) {
 				expect(res).to.have.status(204);
-				expect(res.body).to.be.a('object');
-				expect(res.body).to.deep.equal(updateData);
 			});
 	});
 
