@@ -31,7 +31,8 @@ describe('Blog Posts API', function() {
 	});
 
 	it('should publish new blog post on POST', function() {
-		const newBlog = {title: 'Hello World', content: 'First blog post!', author: 'Mary Han'}
+		const newBlog = {
+			title: 'Hello World', content: 'First blog post!', author: 'Mary Han'};
 		return chai.request(app)
 			.post('/blog-posts')
 			.send(newBlog)
@@ -47,7 +48,7 @@ describe('Blog Posts API', function() {
 
 	it('should update blog posts on PUT', function() {
 		const updateData = {
-			name: 'Goodbye World',
+			title: 'Goodbye World',
 			content: 'Last blog post :(',
 			author: 'Mary Han'
 		};
