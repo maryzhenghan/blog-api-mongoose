@@ -70,7 +70,33 @@ app.post('/posts', (req, res) => {
 		});
 })
 
+
 // PUT REQUESTS
+app.put('/posts/:id', (req, res) => {
+	if (!(req.body.id && req.params.id && (req.params.id === req.body.id))) {
+		console.log('Error: check blog post ID');
+		res.status(400).json({message: 'Missing id / id does not match'})
+	};
+
+	const toUpdate = {};
+	const updateableFields = ['title', 'content', 'author'];
+
+	updateableFields.forEach(field => {
+		if (field in req.body) {
+			toUpdate[field] = req.body[field];
+		}
+	});
+
+	Blog
+		.findByIdAndUpdate(req.params.id, { $set: toUpdate })
+		.then(updatedBlog => res.status(200).json(
+			updatedBlog.serialize()
+			))
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({message: 'Internal server error'})
+		});
+})
 
 
 // DELETE REQUESTS
