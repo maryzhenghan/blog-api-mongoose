@@ -1,16 +1,15 @@
+'use strict';
+
+const bodyParser = require('body-parser');
 const express = require('express');
-const morgan = require('morgan');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+const { PORT, DATABASE_URL } = require('./config');
+const { Blog } = require('./models');
 
 const app = express();
-
-const blogPostsRouter = require('./blogPostsRouter');
-
-// to log the HTTP layer, use morgan
-app.use(morgan('common'));
-app.use(express.static('public'));
-
-// reroute requests that come into `/blog-posts
-app.use('/blog-posts', blogPostsRouter);
+app.use(bodyParser.json());
 
 
 // runServer and closeServer need to access the same
