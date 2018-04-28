@@ -74,7 +74,6 @@ function runServer(databaseUrl, port = PORT) {
 			});
 		});
 	};
-}
 
 // function also needs to return a promise.
 // `server.close` does not return a promise on its own,
