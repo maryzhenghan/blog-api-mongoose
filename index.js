@@ -61,6 +61,7 @@ let server;
 // this is how we will asynchronously start our server.
 function runServer(databaseUrl, port = PORT) {
 	return new Promise((resolve, reject) => {
+		mongoose.connect(databaseUrl, err => {
 		if (err) {
 			return reject(err);
 		}
@@ -71,9 +72,10 @@ function runServer(databaseUrl, port = PORT) {
 			.on('error', err => {
 				mongoose.disconnect();
 				reject(err)
+				});
 			});
 		});
-	};
+	}
 
 // function also needs to return a promise.
 // `server.close` does not return a promise on its own,
