@@ -44,13 +44,49 @@ app.get('/posts/:id', (req, res) => {
 
 
 // POST REQUESTS
+app.post('/posts', (req, res) => {
+	const requiredFields = ['title', 'content', 'author'];
+	for (let i=0; i<requiredFields.length; i++) {
+		const field = requiredFields[i];
+		if (!(field in req.body)) {
+			const message = `Missing \`${field}\` in request body`;
+			console.error(message);
+			return res.status(400).send(message);
+		}
+	}
 
+	Blog
+		.create({
+			title: req.body.title,
+			content: req.body.content,
+			author: req.body.author
+		})
+		.then(newBlog => res.json(
+			newBlog.serialize()
+			))
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({message: 'Internal server error'})
+		});
+})
 
 // PUT REQUESTS
 
 
 // DELETE REQUESTS
+app.delete('/posts/:id', (req, res) => {
+	const idNumber = { 
+		"_id" : ObjectId(req.params.id)
+	};
 
+	Blog
+		.remove(idNumber)
+		.then(() => res.status(204).end())
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({message: 'Internal server error'})
+		});
+})
 
 // runServer and closeServer need to access the same
 // server object, so we declare `server` here, and when

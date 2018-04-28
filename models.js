@@ -9,9 +9,8 @@ const blogPost = mongoose.Schema({
   author: {
     firstName: {type: String, required: true},
     lastName: {type: String, required: true}
-  },
-  created: {type: String, required: true}
-});
+  }
+}, {timestamps: true});
 
 
 // virtual for author full name
@@ -26,7 +25,7 @@ blogPost.methods.serialize = function() {
     title: this.title,
     content: this.content,
     author: this.authorName,
-    created: this.created
+    created: this.createdAt
   };
 }
 
