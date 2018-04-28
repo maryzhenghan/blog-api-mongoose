@@ -12,6 +12,46 @@ const app = express();
 app.use(bodyParser.json());
 
 
+// GET REQUESTS to /posts endpoint
+app.get('/posts', (req, res) => {
+	Blog
+		.find()
+		.then(blogDocuments => res.json(
+				blogDocuments.map(blogDocument => blogDocument.serialize())
+				))
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({message: 'Internal server error'})
+		});
+})
+
+// GET REQUESTS to /posts:id endpoint
+app.get('/posts/:id', (req, res) => {
+	const idNumber = { 
+		"_id" : ObjectId(req.params.id)
+	};
+
+	Blog
+		.find(idNumber)
+		.then(blogDocument => res.json(
+				blogDocument.serialize()
+				))
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({message: 'Internal server error'})
+		});
+})
+
+
+// POST REQUESTS
+
+
+// PUT REQUESTS
+
+
+// DELETE REQUESTS
+
+
 // runServer and closeServer need to access the same
 // server object, so we declare `server` here, and when
 // runServer runs, it assigns a value
